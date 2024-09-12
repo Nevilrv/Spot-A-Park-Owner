@@ -50,21 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'Place your key',
-    appId: 'Place your key',
-    messagingSenderId: 'Place your key',
-    projectId: 'Place your key',
-    storageBucket: 'Place your key',
+    apiKey: 'AIzaSyBXA7vkMfJ5QwcrgQmle35CSXrKr5Tgf20',
+    appId: '1:380287931734:android:3dd5c2eb21352c93be72f7',
+    messagingSenderId: '380287931734',
+    projectId: 'spot-a-park-app',
+    storageBucket: 'spot-a-park-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'Place your key',
-    appId: 'Place your key',
-    messagingSenderId: 'Place your key',
-    projectId: 'Place your key',
-    storageBucket: 'Place your key',
-    androidClientId: 'Place your key',
-    iosClientId: 'Place your key',
-    iosBundleId: 'Place your key',
+    apiKey: 'AIzaSyA3Yr4fmUbpHpAiLgZi8bAN90DnWQbfo4o',
+    appId: '1:380287931734:ios:02d8bc61777354dabe72f7',
+    messagingSenderId: '380287931734',
+    projectId: 'spot-a-park-app',
+    storageBucket: 'spot-a-park-app.appspot.com',
+    androidClientId: '380287931734-0ne2n7v0k8fnpbjcer1g5tgmulasvhlo.apps.googleusercontent.com',
+    iosClientId: '380287931734-ba71kndcsacp3c6u1gd7r0a3ce8euvd8.apps.googleusercontent.com',
+    iosBundleId: 'com.sataware.spotapark-owner',
   );
+
 }

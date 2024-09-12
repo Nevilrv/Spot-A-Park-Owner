@@ -56,14 +56,16 @@ class LoginScreenController extends GetxController {
 
   Future<UserCredential?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn().catchError((error) {
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn().signIn().catchError((error) {
         ShowToastDialog.closeLoader();
         ShowToastDialog.showToast("something_went_wrong".tr);
         return null;
       });
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -94,18 +96,20 @@ class LoginScreenController extends GetxController {
           ownerModel.loginType = Constant.googleLoginType;
 
           ShowToastDialog.closeLoader();
-          Get.offNamed(Routes.INFORMATION_SCREEN, arguments: {"ownerModel": ownerModel});
+          Get.offNamed(Routes.INFORMATION_SCREEN,
+              arguments: {"ownerModel": ownerModel});
         } else {
           FireStoreUtils.userExistOrNot(value.user!.uid).then((userExit) async {
             ShowToastDialog.closeLoader();
             if (userExit == true) {
-              OwnerModel? ownerModel = await FireStoreUtils.getUserProfile(value.user!.uid);
+              OwnerModel? ownerModel =
+                  await FireStoreUtils.getUserProfile(value.user!.uid);
               if (ownerModel != null) {
                 if (ownerModel.active == true) {
                   Get.toNamed(Routes.DASHBOARD_SCREEN);
-                }
-                else{
-                  ShowToastDialog.showToast("Unable to Log In?  Please Contact the Admin for Assistance");
+                } else {
+                  ShowToastDialog.showToast(
+                      "Unable to Log In?  Please Contact the Admin for Assistance");
                 }
               }
             } else {
@@ -116,7 +120,8 @@ class LoginScreenController extends GetxController {
               ownerModel.profilePic = value.user!.photoURL;
               ownerModel.loginType = Constant.googleLoginType;
 
-              Get.offNamed(Routes.INFORMATION_SCREEN, arguments: {"ownerModel": ownerModel});
+              Get.offNamed(Routes.INFORMATION_SCREEN,
+                  arguments: {"ownerModel": ownerModel});
             }
           });
         }
@@ -158,9 +163,11 @@ class LoginScreenController extends GetxController {
   }
 
   String generateNonce([int length = 32]) {
-    const charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
     final random = Random.secure();
-    return List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
   }
 
   /// Returns the sha256 hash of [input] in hex notation.
@@ -181,20 +188,25 @@ class LoginScreenController extends GetxController {
           ownerModel.email = value.user!.email;
           ownerModel.profilePic = value.user!.photoURL;
           ownerModel.loginType = Constant.appleLoginType;
+          ownerModel.fullName = value.user?.displayName ??
+              value.user?.providerData[0].displayName ??
+              "";
 
           ShowToastDialog.closeLoader();
-          Get.offNamed(Routes.INFORMATION_SCREEN, arguments: {"ownerModel": ownerModel});
+          Get.offNamed(Routes.INFORMATION_SCREEN,
+              arguments: {"ownerModel": ownerModel});
         } else {
           FireStoreUtils.userExistOrNot(value.user!.uid).then((userExit) async {
             ShowToastDialog.closeLoader();
             if (userExit == true) {
-              OwnerModel? ownerModel = await FireStoreUtils.getUserProfile(value.user!.uid);
+              OwnerModel? ownerModel =
+                  await FireStoreUtils.getUserProfile(value.user!.uid);
               if (ownerModel != null) {
                 if (ownerModel.active == true) {
                   Get.toNamed(Routes.DASHBOARD_SCREEN);
-                }
-                else{
-                  ShowToastDialog.showToast("Unable to Log In?  Please Contact the Admin for Assistance");
+                } else {
+                  ShowToastDialog.showToast(
+                      "Unable to Log In?  Please Contact the Admin for Assistance");
                 }
               }
             } else {
@@ -204,7 +216,8 @@ class LoginScreenController extends GetxController {
               ownerModel.profilePic = value.user!.photoURL;
               ownerModel.loginType = Constant.googleLoginType;
 
-              Get.offNamed(Routes.INFORMATION_SCREEN, arguments: {"ownerModel": ownerModel});
+              Get.offNamed(Routes.INFORMATION_SCREEN,
+                  arguments: {"ownerModel": ownerModel});
             }
           });
         }

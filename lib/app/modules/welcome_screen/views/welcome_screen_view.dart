@@ -20,7 +20,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Text(
-                "Elevate Your Parking Experience with ParkEasy",
+                "Elevate Your Parking Experience with Spot A Park",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontFamily: AppThemData.bold, fontSize: 24, color: AppColors.darkGrey10),
               ),
@@ -28,7 +28,7 @@ class WelcomeScreenView extends GetView<WelcomeScreenController> {
                 height: 8,
               ),
               const Text(
-                "Enjoy a seamless and stress-free parking experience with ParkEasy",
+                "Enjoy a seamless and stress-free parking experience with Spot A Park",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontFamily: AppThemData.medium, color: AppColors.darkGrey08, fontSize: 16),
               ),

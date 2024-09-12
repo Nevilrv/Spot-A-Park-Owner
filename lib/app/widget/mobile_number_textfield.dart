@@ -47,11 +47,14 @@ class MobileNumberTextField extends StatelessWidget {
             height: 8,
           ),
           TextFormField(
-            validator: (value) => value != null && value.isNotEmpty ? null : 'Phone number required'.tr,
+            validator: (value) => value != null && value.isNotEmpty
+                ? null
+                : 'Phone number required'.tr,
             keyboardType: TextInputType.number,
             textCapitalization: TextCapitalization.sentences,
             controller: controller,
             textAlign: TextAlign.start,
+            textInputAction: TextInputAction.done,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             ],
@@ -66,9 +69,11 @@ class MobileNumberTextField extends StatelessWidget {
                 filled: true,
                 enabled: enabled ?? true,
                 fillColor: AppColors.white,
-                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal:  5),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 5),
                 prefixIcon: CountryCodePicker(
-                  showFlag: false,padding: EdgeInsets.zero,
+                  showFlag: false,
+                  padding: EdgeInsets.zero,
                   onChanged: (value) {
                     countryCode = value.dialCode.toString();
                   },
@@ -81,7 +86,10 @@ class MobileNumberTextField extends StatelessWidget {
                   flagDecoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                   ),
-                  textStyle: const TextStyle(fontFamily: AppThemData.medium, color: AppColors.darkGrey04, fontSize: 14),
+                  textStyle: const TextStyle(
+                      fontFamily: AppThemData.medium,
+                      color: AppColors.darkGrey04,
+                      fontSize: 14),
                 ),
                 disabledBorder: UnderlineInputBorder(
                   borderRadius: BorderRadius.circular(4),
@@ -104,7 +112,10 @@ class MobileNumberTextField extends StatelessWidget {
                   borderSide: const BorderSide(color: Colors.white),
                 ),
                 hintText: "Enter Mobile Number".tr,
-                hintStyle: const TextStyle(fontSize: 16, color: AppColors.darkGrey04, fontFamily: AppThemData.medium)),
+                hintStyle: const TextStyle(
+                    fontSize: 16,
+                    color: AppColors.darkGrey04,
+                    fontFamily: AppThemData.medium)),
           ),
         ],
       ),

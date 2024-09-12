@@ -6,10 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="owner_app"
+        android:label="Spot A Park-Owner"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"
@@ -39,7 +40,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="YOUR_API_KEY_HERE" />
+            android:value="AIzaSyAGHlk0PoZ-BdSwUJh_HGSHXWKlARE4Pt8" />
 
     </application>
     <queries>

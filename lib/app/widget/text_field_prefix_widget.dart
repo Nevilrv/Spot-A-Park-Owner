@@ -51,7 +51,11 @@ class TextFieldWidgetPrefix extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title ?? '', style: TextStyle(fontFamily: titleFontFamily, fontSize: titleFontSize, color: titleColor)),
+                Text(title ?? '',
+                    style: TextStyle(
+                        fontFamily: titleFontFamily,
+                        fontSize: titleFontSize,
+                        color: titleColor)),
                 const SizedBox(
                   height: 5,
                 ),
@@ -61,21 +65,30 @@ class TextFieldWidgetPrefix extends StatelessWidget {
           TextFormField(
             readOnly: readOnly ?? false,
             onTap: onPress,
-            validator: validator ?? (value) => value != null && value.isNotEmpty ? null : 'required'.tr,
+            minLines: 1,
+            validator: validator ??
+                (value) =>
+                    value != null && value.isNotEmpty ? null : 'required'.tr,
             keyboardType: textInputType ?? TextInputType.text,
+            textInputAction: TextInputAction.done,
             textCapitalization: TextCapitalization.sentences,
             controller: controller,
             textAlign: TextAlign.start,
             maxLines: maxLine ?? 1,
             inputFormatters: inputFormatters,
-            style: const TextStyle(fontFamily: AppThemData.semiBold, fontSize: 14, color: AppColors.darkGrey10),
+            style: const TextStyle(
+                fontFamily: AppThemData.semiBold,
+                fontSize: 14,
+                color: AppColors.darkGrey10),
             decoration: InputDecoration(
-                errorStyle: const TextStyle(fontFamily: AppThemData.regular, color: Colors.red),
+                errorStyle: const TextStyle(
+                    fontFamily: AppThemData.regular, color: Colors.red),
                 isDense: true,
                 filled: true,
                 enabled: enable ?? true,
                 fillColor: AppColors.white,
-                contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: prefix != null ? 0 : 10),
+                contentPadding: EdgeInsets.symmetric(
+                    vertical: 16, horizontal: prefix != null ? 0 : 10),
                 prefixIcon: prefix,
                 disabledBorder: UnderlineInputBorder(
                   borderRadius: BorderRadius.circular(4),
@@ -98,7 +111,10 @@ class TextFieldWidgetPrefix extends StatelessWidget {
                   borderSide: const BorderSide(color: AppColors.white),
                 ),
                 hintText: hintText.tr,
-                hintStyle: const TextStyle(fontFamily: AppThemData.medium, fontSize: 16, color: AppColors.darkGrey04)),
+                hintStyle: const TextStyle(
+                    fontFamily: AppThemData.medium,
+                    fontSize: 16,
+                    color: AppColors.darkGrey04)),
           ),
         ],
       ),

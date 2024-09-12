@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:owner_app/app/models/owner_model.dart';
 import 'package:owner_app/app/routes/app_pages.dart';
 import 'package:owner_app/constant/constant.dart';
@@ -15,9 +17,10 @@ class InformationScreenController extends GetxController {
   Rx<TextEditingController> fullNameController = TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
   Rx<TextEditingController> phoneNumberController = TextEditingController().obs;
-  Rx<TextEditingController> referralCodeController = TextEditingController().obs;
+  Rx<TextEditingController> referralCodeController =
+      TextEditingController().obs;
   RxString countryCode = "+91".obs;
-
+  final ImagePicker imagePicker = ImagePicker();
   Rx<OwnerModel> ownerModel = OwnerModel().obs;
 
   RxList<String> genderList = ["Male", "Female", "Others"].obs;
@@ -37,11 +40,12 @@ class InformationScreenController extends GetxController {
       ownerModel.value = argumentData['ownerModel'];
       loginType.value = ownerModel.value.loginType.toString();
       if (loginType.value == Constant.phoneLoginType) {
-        phoneNumberController.value.text = ownerModel.value.phoneNumber.toString();
+        phoneNumberController.value.text =
+            ownerModel.value.phoneNumber.toString();
         countryCode.value = ownerModel.value.countryCode.toString();
       } else {
         emailController.value.text = ownerModel.value.email.toString();
-        fullNameController.value.text = ownerModel.value.fullName.toString();
+        fullNameController.value.text = ownerModel.value.fullName ?? "";
       }
     }
     update();
@@ -49,6 +53,9 @@ class InformationScreenController extends GetxController {
 
   createAccount() async {
     String fcmToken = await NotificationService.getToken();
+
+    ShowToastDialog.showLoader("Please Wait..".tr);
+
     if (profileImage.value.isNotEmpty) {
       profileImage.value = await Constant.uploadUserImageToFireStorage(
         File(profileImage.value),
@@ -57,7 +64,6 @@ class InformationScreenController extends GetxController {
       );
     }
 
-    ShowToastDialog.showLoader("Please Wait..".tr);
     OwnerModel ownerModelData = ownerModel.value;
     ownerModelData.fullName = fullNameController.value.text;
     ownerModelData.email = emailController.value.text;
@@ -73,5 +79,16 @@ class InformationScreenController extends GetxController {
         Get.offNamed(Routes.DASHBOARD_SCREEN);
       }
     });
+  }
+
+  Future pickFile({required ImageSource source}) async {
+    try {
+      XFile? image = await imagePicker.pickImage(source: source);
+      if (image == null) return;
+      Get.back();
+      profileImage.value = image.path;
+    } on PlatformException catch (e) {
+      ShowToastDialog.showToast("${"failed_to_pick".tr} : \n $e");
+    }
   }
 }

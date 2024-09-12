@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:owner_app/app/models/location_lat_lng.dart';
@@ -20,12 +21,14 @@ class AddParkingScreenController extends GetxController {
 
   Rx<TextEditingController> parkingNameController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
-  Rx<TextEditingController> parkingSpaceController = TextEditingController().obs;
+  Rx<TextEditingController> parkingSpaceController =
+      TextEditingController().obs;
   Rx<TextEditingController> priceController = TextEditingController().obs;
   Rx<TextEditingController> startTimeController = TextEditingController().obs;
   Rx<TextEditingController> endTimeController = TextEditingController().obs;
   Rx<TextEditingController> phoneNumberController = TextEditingController().obs;
-
+  double? lat;
+  double? lng;
   RxString countryCode = "+91".obs;
 
   RxBool isLoading = true.obs;
@@ -37,8 +40,10 @@ class AddParkingScreenController extends GetxController {
 
   Rx<LocationLatLng> locationLatLng = LocationLatLng().obs;
   Rx<ParkingModel> parkingModel = ParkingModel().obs;
-  RxList<ParkingFacilitiesModel> parkingFacilitiesList = <ParkingFacilitiesModel>[].obs;
-  RxList<ParkingFacilitiesModel> selectedParkingFacilitiesList = <ParkingFacilitiesModel>[].obs;
+  RxList<ParkingFacilitiesModel> parkingFacilitiesList =
+      <ParkingFacilitiesModel>[].obs;
+  RxList<ParkingFacilitiesModel> selectedParkingFacilitiesList =
+      <ParkingFacilitiesModel>[].obs;
 
   void handleParkingChange(String? value) {
     parkingType.value = value!;
@@ -59,7 +64,9 @@ class AddParkingScreenController extends GetxController {
 
   getLocation() async {
     Constant.currentLocation = await Utils.getCurrentLocation();
-    List<Placemark> placeMarks = await placemarkFromCoordinates(Constant.currentLocation!.latitude, Constant.currentLocation!.longitude);
+    List<Placemark> placeMarks = await placemarkFromCoordinates(
+        Constant.currentLocation!.latitude,
+        Constant.currentLocation!.longitude);
     Constant.country = placeMarks.first.country;
     log("---------${Constant.country}");
   }
@@ -69,7 +76,9 @@ class AddParkingScreenController extends GetxController {
     dynamic argument = Get.arguments;
     if (argument != null) {
       parkingModel.value = argument['parkingModel'];
-      await FireStoreUtils.getOwnerParkingDetail(parkingModel.value.id.toString()).then((value) {
+      await FireStoreUtils.getOwnerParkingDetail(
+              parkingModel.value.id.toString())
+          .then((value) {
         if (value != null) {
           parkingModel.value = value;
           parkingImages.value = value.images!.cast<String>();
@@ -99,7 +108,8 @@ class AddParkingScreenController extends GetxController {
   saveDetails() async {
     if (formKey.value.currentState!.validate()) {
       ShowToastDialog.showLoader("Please Wait");
-      if (parkingImages.isNotEmpty && Constant.hasValidUrl(parkingImages[0]) == false) {
+      if (parkingImages.isNotEmpty &&
+          Constant.hasValidUrl(parkingImages[0]) == false) {
         parkingImages.value = await Constant.uploadParkingImage(parkingImages);
       }
 
@@ -122,8 +132,11 @@ class AddParkingScreenController extends GetxController {
       parkingModel.value.phoneNumber = phoneNumberController.value.text;
       parkingModel.value.endTime = endTimeController.value.text;
 
-      GeoFirePoint position = GeoFlutterFire().point(latitude: locationLatLng.value.latitude!, longitude: locationLatLng.value.longitude!);
-      parkingModel.value.position = Positions(geoPoint: position.geoPoint, geohash: position.hash);
+      GeoFirePoint position = GeoFlutterFire().point(
+          latitude: locationLatLng.value.latitude!,
+          longitude: locationLatLng.value.longitude!);
+      parkingModel.value.position =
+          Positions(geoPoint: position.geoPoint, geohash: position.hash);
 
       await FireStoreUtils.addParkingDetails(parkingModel.value).then((value) {
         Get.back(result: true);

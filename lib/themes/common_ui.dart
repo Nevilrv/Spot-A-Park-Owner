@@ -24,17 +24,21 @@ class UiInterface {
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 2),
               child: InkWell(
-                  onTap: onBackTap ?? () => Get.back(),
-                  child: SvgPicture.asset(
-                    "assets/icons/ic_arrow_left.svg",
-                    color: AppColors.darkGrey06,
-                  )),
+                onTap: onBackTap ?? () => Get.back(),
+                child: SvgPicture.asset(
+                  "assets/icons/ic_arrow_left.svg",
+                  color: AppColors.darkGrey06,
+                ),
+              ),
             ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(
               title,
-              style: const TextStyle(fontFamily: AppThemData.semiBold, color: AppColors.darkGrey10, fontSize: 18),
+              style: const TextStyle(
+                  fontFamily: AppThemData.semiBold,
+                  color: AppColors.darkGrey10,
+                  fontSize: 18),
             ),
           ),
         ],

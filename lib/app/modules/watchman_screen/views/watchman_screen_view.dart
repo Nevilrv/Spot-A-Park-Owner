@@ -119,7 +119,7 @@ class WatchmanScreenView extends StatelessWidget {
 
 Future<void> shareEmailPassword(String email, String password) async {
   await FlutterShare.share(
-    title: 'ParkEasy'.tr,
+    title: 'Spot A Park'.tr,
     text: 'Hey there, Your Watchman App Login \n\nEmail :- $email\nPassword :- $password',
   );
 }

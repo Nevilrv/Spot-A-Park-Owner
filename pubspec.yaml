@@ -20,7 +20,8 @@ dependencies:
   flutter_svg: ^2.0.7
   provider: ^6.0.5
   uuid: ^4.1.0
-  place_picker:
+#  place_picker: ^0.10.0
+  flutter_place_picker: ^0.0.1-dev.5
   geolocator:
   geocoding: ^2.1.1
   geoflutterfire2: ^2.3.15
@@ -32,14 +33,16 @@ dependencies:
   flutter_email_sender: ^6.0.2
 
 
+
+
   #firebase_dependencies
-  cloud_firestore: ^4.9.3
-  firebase_auth: ^4.10.1
-  firebase_core: ^2.17.0
-  firebase_messaging: ^14.6.9
-  firebase_storage: ^11.2.8
-  flutter_local_notifications: ^16.1.0
-  google_sign_in: ^6.1.5
+  cloud_firestore: ^4.13.4
+  firebase_auth: ^4.15.1
+  firebase_core: ^2.24.1
+  firebase_messaging: ^14.7.8
+  firebase_storage: ^11.5.4
+  flutter_local_notifications: ^16.3.0
+  google_sign_in: ^6.2.0
   sign_in_with_apple: ^5.0.0
 
   flutter:

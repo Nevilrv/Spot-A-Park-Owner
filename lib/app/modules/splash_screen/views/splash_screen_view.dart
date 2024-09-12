@@ -21,7 +21,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
                 Image.asset("assets/images/logo.png"),
                 const SizedBox(height: 24),
                 const Text(
-                  "ParkEasy",
+                  "Spot A Park",
                   style: TextStyle(fontFamily: AppThemData.bold, fontWeight: FontWeight.w900, color: Colors.black, fontSize: 32),
                 ),
                 const SizedBox(height: 3),
